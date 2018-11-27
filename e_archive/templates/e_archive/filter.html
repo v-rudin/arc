@@ -1,0 +1,38 @@
+{% load static %}
+    <script src="{% static 'e_archive/js/ajax_request.js' %}"></script>
+
+    <form type="post" id="filter_form" action="javascript:void(null);" onsubmit="Get_Filter();">
+        {% csrf_token %}
+         <input type="hidden" id="page_num" name="page_num" value="{% if object_list.number %}{{ object_list.number }} {% else %} 1 {% endif %}">
+          <div class="row placeholders ">
+            <div class="col-xs-4 col-sm-2 placeholder">
+                 <input type="text" name="text1" class="form-control" list="text1_list">
+                    <datalist id="text1_list">
+		                <option value="Гель для душа">Гель для душа</option>
+                        <option value="Дезодорант">Дезодорант</option>
+		            </datalist>
+            </div>
+            <div class="col-xs-4 col-sm-2 placeholder">
+                <select name="list2" class="form-control">
+                    <option>Выберите из списка1</option>
+                    <option>Выберите из списка2</option>
+                </select>
+            </div>
+             <div class="col-xs-4 col-sm-2 placeholder">
+                <select name="list3" class="form-control">
+                    <option>Выберите из списка1</option>
+                    <option>Выберите из списка2</option>
+                </select>
+            </div>
+             <div class="col-xs-4 col-sm-2 placeholder">
+                 <input type="text" name="text4" class="form-control">
+            </div>
+             <div class="col-xs-8 col-sm-4 placeholder">
+                 <input type="text" name="text5" class="form-control" value="{{ text5 }}">
+            </div>
+
+            <div class="hidden">
+                 <input type="submit" class="form-control">
+            </div>
+          </div>
+    </form>

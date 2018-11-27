@@ -1,0 +1,81 @@
+<div id="table_div">
+          <div class="row placeholders">
+                {% for diadocdocument in object_list %}
+                   <div class="col-xs-4 col-sm-2 placeholder">{{ diadocdocument.doc_brief }}</div>
+                   <div class="col-xs-4 col-sm-2 placeholder">{{ diadocdocument.doc_type }}</div>
+                   <div class="col-xs-4 col-sm-2 placeholder">{{ diadocdocument.doc_number }}</div>
+                   <div class="col-xs-4 col-sm-2 placeholder">{{ diadocdocument.doc_date }}</div>
+                   <div class="col-xs-8 col-sm-4 placeholder">{{ diadocdocument.doc_description }}</div>
+                {% endfor %}
+          </div>
+
+<form id="paginator_form" action="javascript:void(null);" onsubmit="Get_Filter();">
+    <nav aria-label="...">
+        <ul class="pagination">
+
+          <li
+                   {% if object_list.has_previous %}
+                       class="page-item"  onclick="set_paginator({{ object_list.number|add:'-1' }})"
+                   {% else %}
+                       class="page-item disabled"
+                   {% endif %}>
+                <span class="page-link">Previous</span></li>
+
+            {% if object_list.paginator.num_pages > 3 %} <!-- 4 страницы -->
+               {% if object_list.number == 1 %}
+                    <li class="page-item active"><span class="page-link" onclick="set_paginator(1)">1<span class="sr-only">(current)</span></span></li>
+                    <li class="page-item"><span class="page-link" onclick="set_paginator(2)">2</span></li>
+                    <li class="page-item"><span class="page-link" onclick="set_paginator(3)">3</span></li>
+               {% elif object_list.number == object_list.paginator.num_pages %}
+                    <li class="page-item"><span class="page-link" onclick="set_paginator({{ object_list.number|add:'-2' }})">{{ object_list.number|add:"-2" }}</span></li>
+                    <li class="page-item"><span class="page-link" onclick="set_paginator({{ object_list.number|add:'-1' }})">{{ object_list.number|add:"-1" }}</span></li>
+                    <li class="page-item active"><span class="page-link" onclick="set_paginator({{ object_list.number }})">{{ object_list.number }}<span class="sr-only">(current)</span></span></li>
+               {% else %}
+                    <li class="page-item"><span class="page-link" onclick="set_paginator({{ object_list.number|add:'-1' }})">{{ object_list.number|add:"-1" }}</span></li>
+                    <li class="page-item active"><span class="page-link" onclick="set_paginator({{ object_list.number }})">{{ object_list.number }}<span class="sr-only">(current)</span></span></li>
+                    <li class="page-item"><span class="page-link" onclick="set_paginator({{ object_list.number|add:'1' }})">{{ object_list.number|add:"1" }}</span></li>
+               {% endif %}
+
+            {% elif object_list.paginator.num_pages > 2 %} <!-- 3 страницы -->
+               {% if object_list.number == 1 %}
+                    <li class="page-item active"><span class="page-link">1<span class="sr-only">(current)</span></span></li>
+                    <li class="page-item"><span class="page-link" onclick="set_paginator(2)">2</span></li>
+                    <li class="page-item"><span class="page-link" onclick="set_paginator(3)">3</span></li>
+                {% elif object_list.number == 2 %}
+                    <li class="page-item"><span class="page-link"  onclick="set_paginator(1)">1</span></li>
+                    <li class="page-item active"><span class="page-link">2<span class="sr-only">(current)</span></span></li>
+                    <li class="page-item"><span class="page-link"  onclick="set_paginator(3)">3</span></li>
+                {% else %}
+                    <li class="page-item"><span class="page-link"  onclick="set_paginator(1)">1</span></li>
+                    <li class="page-item"><span class="page-link"  onclick="set_paginator(2)">2</span></li>
+                    <li class="page-item active"><span class="page-link">3<span class="sr-only">(current)</span></span></li>
+                {% endif %}
+
+            {% elif object_list.paginator.num_pages > 1 %} <!-- 2 страницы -->
+                {% if object_list.number == 1 %}
+                    <li class="page-item active"><span class="page-link">1<span class="sr-only">(current)</span></span></li>
+                    <li class="page-item"><span class="page-link" onclick="set_paginator(2)" >2</span></li>
+                {% else %}
+                    <li class="page-item"><span class="page-link" onclick="set_paginator(1)" >1</span></li>
+                    <li class="page-item active"><span class="page-link">2<span class="sr-only">(current)</span></span></li>
+                {% endif %}
+
+            {% else %} <!-- 1 страница -->
+                  <li class="page-item active"><span class="page-link">1<span class="sr-only">(current)</span></span></li>
+            {% endif %}
+
+            <li
+                   {% if object_list.has_next %}
+                       class="page-item"  onclick="set_paginator({{ object_list.number|add:'1' }})"
+                   {% else %}
+                       class="page-item disabled"
+                   {% endif %}>
+                <span class="page-link">Next</span></li>
+        </ul>
+    </nav>
+</form>
+
+
+</div>
+
+
