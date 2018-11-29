@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.shortcuts import render
+from e_archive.addon import AddOn
 
 from .models import DiadocDocument
 from .forms import DiadocDocumentForm
@@ -13,12 +14,16 @@ class SettingsVariables:
     PAGE_COUNT_IN_PAGINATION = 2
 
 def index(request):
-    url = 'https://diadoc-api-test.kontur.ru/Authenticate?login=test&password=test'
+    url = 'https://diadoc-api-test.kontur.ru/Authenticate'
     #params = '?login=user@skbkontur.ru&password=qwerty',
 
+    params = AddOn.auth_params
+    headers = AddOn.auth_headers
 
+    print(params)
+    print(headers)
 
-    req = requests.post(url, headers=headers)
+    req = requests.post(url, params=params, headers=headers)
     print('------------------------')
     print(req.text)
     print('!!!!!!!!!!!!!!!!!!!!!!!!')
